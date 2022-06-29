@@ -49,11 +49,10 @@ def login_is_required(function):  #a function to check if the user is authorized
 	return wrapper
 	
 def logged_in():#checks if user is logged in
-	try:
-		a = session["google_id"]
-		return True
-	except KeyError and NameError:
-		return False
+    if "google_id" in session:
+	    return True
+    else:
+        return False
 		
 
 @app.route("/login_google")  #the page where the user can login
