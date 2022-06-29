@@ -48,23 +48,10 @@ def login_is_required(function):  #a function to check if the user is authorized
 
 	return wrapper
 	
-def logged_in(user_id):#checks if user is logged in with username
-	usernames_list = dics_from_file("data/usernames.txt")
+def logged_in():#checks if user is logged in
 	try:
 		a = session["google_id"]
-	except KeyError and NameError:
-		return False
-	if user_id == session["google_id"] and user_id in session:
-		print("true")
 		return True
-	else:
-		print("false")
-		return False
-	
-def logged_in_noid():
-	try:
-		a = session["google_id"]
-		logged_in(a)
 	except KeyError and NameError:
 		return False
 		
@@ -107,9 +94,7 @@ def logout():
 
 @app.route("/")
 def index():
-	if logged_in_noid() == True:  #authorization required
-		return redirect(f"/member/{session['google_id']}")
-	else:
+	if logged_in() is False:  #authorization required
 		sip = "/sign_in"
 		home = "/#top"
 		highlight = ";border-radius:5px"
@@ -119,12 +104,12 @@ def index():
 		highlight = "background-color:#0091ff;border-radius:5px"
 		becomemember = '<div style="top:32.5vh;position:absolute;text-align:center;width:100%"><h2 style="background: rgba(51, 51, 51, 0.75); border-radius: 10px; padding: 5px">Become a member today</h2></div>'
 		return flask.render_template("home.html", pfp=pfp, sip=sip, home=home, hh=highlight, sorl=sorl, sorll=sorll, becomemember=becomemember)
+	else:
+		return redirect(f"/member/{session['google_id']}")
 
 @app.route("/member/<user_id>")
 def member(user_id):
-	if logged_in(user_id) == False:  #authorization required
-		return redirect("/#top")
-	else:
+	if logged_in() is True:
 		pfp = session["pfp"]
 		if str(pfp) == "None":
 			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
@@ -141,6 +126,8 @@ def member(user_id):
 		sorll = "/learn"
 		home = f"/member/{user_id}"
 		return flask.render_template("home.html", pfp=pfp, sip=sip, userid=userid, hh=highlight, hp=hp, sorl=sorl, sorll=sorll, home=home)
+	else:
+		return redirect("/#top")
 
 
 @app.route("/test1")
