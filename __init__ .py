@@ -94,15 +94,15 @@ def logout():
 @app.route("/")
 def index():
 	if logged_in() is False:  #authorization required
-		sip = "/sign_in"
-		home = "/#top"
+		signed_out = 'href=/sign_in'
+		home = ""
 		highlight = ";border-radius:5px"
 		pfp = '<h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 		sorl = "Get started"
 		sorll = "/sign_in"
 		highlight = "background-color:#0091ff;border-radius:5px"
 		becomemember = '<div style="top:32.5vh;position:absolute;text-align:center;width:100%"><h2 style="background: rgba(51, 51, 51, 0.75); border-radius: 10px; padding: 5px">Become a member today</h2></div>'
-		return flask.render_template("home.html", pfp=pfp, sip=sip, home=home, hh=highlight, sorl=sorl, sorll=sorll, becomemember=becomemember)
+		return flask.render_template("home.html", pfp=pfp, signed_out=signed_out, home=home, hh=highlight, sorl=sorl, sorll=sorll, becomemember=becomemember)
 	else:
 		return redirect(f"/member/{session['google_id']}")
 
@@ -123,7 +123,7 @@ def member(user_id):
 		hp = "width:6vh"
 		sorl = "Suggested workouts"
 		sorll = "/learn"
-		home = f"member/{user_id}"
+		home = f"http://127.0.0.1:5000/member/{user_id}"
 		return flask.render_template("home.html", pfp=pfp, sip=sip, userid=userid, hh=highlight, hp=hp, sorl=sorl, sorll=sorll, home=home)
 	else:
 		return redirect("/#top")
@@ -134,11 +134,11 @@ def disc():
 	if "google_id" in session:
 		return redirect(f"/discussion/member/{session['google_id']}")
 	else:
-		sip = "/sign_in"
+		signed_out = 'href=/sign_in'
 		pfp = '<h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
-		home= "/#top"
+		home= "/"
 		highlight = "background-color:#0091ff;border-radius:5px"
-		return flask.render_template("disc.html", sip=sip, pfp=pfp, home=home, hd=highlight)
+		return flask.render_template("disc.html", signed_out=signed_out, pfp=pfp, home=home, hd=highlight)
 
 @app.route("/discussion/member/<user_id>")
 def disc_member(user_id):
@@ -154,7 +154,7 @@ def disc_member(user_id):
 					pfp = "/static/users/defualt/pfp.png"
 		sip = f"/profile/member/{user_id}"
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
-		home = f"member/{user_id}"
+		home = f"http://127.0.0.1:5000/member/{user_id}"
 		highlight = "background-color:#0091ff;border-radius:5px"
 		hp = "width:6vh"
 		return flask.render_template("disc.html", pfp=pfp, sip=sip, user_id=user_id, home=home, hd=highlight, hp=hp)
@@ -207,9 +207,9 @@ def about_member(user_id):
 def contact():
 	f = open("templates/contact.html", "r+")
 	cont = f.readlines()
-	sip = "/sign_in"
+	signed_out = 'href=/sign_in'
 	pfp = '<h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
-	return flask.render_template("base.html", cont=cont, sip=sip, pfp=pfp)
+	return flask.render_template("base.html", cont=cont, signed_out=signed_out, pfp=pfp)
 
 @app.route("/contact1")
 def cont1():
@@ -220,11 +220,11 @@ def cont1():
 def sign_in():
 	if "google_id" in session:
 		return redirect(f"/profile/member/{session['google_id']}")
-	sip = "/sign_in"
-	home = "/#top"
+	signed_out = 'href=/sign_in'
+	home = "/"
 	highlight = "background-color:#0091ff;border-radius:5px"
 	pfp = '<h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
-	return flask.render_template("sign_in.html", sip=sip, home=home, pfp=pfp, hp=highlight)
+	return flask.render_template("sign_in.html", signed_out=signed_out, home=home, pfp=pfp, hp=highlight)
 
 @app.route("/new_account/<user_id>")
 def new_account(user_id):
@@ -269,11 +269,11 @@ def learn():
 	if "google_id" in session:
 		return redirect(f"/learn/member/{session['google_id']}")
 	else:
-		sip = "/sign_in"
+		signed_out = 'href=/sign_in'
 		pfp = '<h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
-		home = "/#top"
+		home = "/"
 		highlight = "background-color:#0091ff;border-radius:5px"
-		return flask.render_template("learn.html", pfp=pfp, sip=sip, home=home, hl=highlight)
+		return flask.render_template("learn.html", pfp=pfp, signed_out=signed_out, home=home, hl=highlight)
 
 @app.route("/learn/member/<user_id>")
 def learn_member(user_id):
@@ -291,7 +291,8 @@ def learn_member(user_id):
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
 		highlight = "background-color:#0091ff;border-radius:5px"
 		hp = "width:6vh"
-		return flask.render_template("learn.html", pfp=pfp, sip=sip, user_id=user_id, hl=highlight, hp=hp)
+		home = f"http://127.0.0.1:5000/member/{user_id}"
+		return flask.render_template("learn.html", pfp=pfp, sip=sip, user_id=user_id, hl=highlight, hp=hp, home=home)
 
 
 
@@ -331,7 +332,7 @@ def profile_member(user_id):
 		sip = f"/profile/member/{user_id}"
 		pfpimg = pfp
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
-		home = f"member/{user_id}"
+		home = f"http://127.0.0.1:5000/member/{user_id}"
 		highlight = "width:6vh;border-radius:5px"
 		usernames = dics_from_file("data/usernames.txt")
 		username = usernames[user_id]
