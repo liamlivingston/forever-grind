@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="height:88vh">
+<div style="height:30%;background-color:#0091ff; border-bottom: solid black 1px;">
+</div>
+<div style="position: relative;z-index:9;margin-left:5vh;height:0px;margin-top:-62.5px">
+
+<style>
+body {
+  font-family: sans-serif;
+}
+
+.profilepic {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #111;
+}
+
+.profilepic:hover .profilepic__content {
+  opacity: 1;
+}
+
+.profilepic:hover .profilepic__image {
+  opacity: .7;
+}
+
+.profilepic__image {
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: white;
+  padding-bottom: 8px;
+}
+
+.fas {
+  font-size: 20px;
+}
+
+.profilepic__text {
+  text-transform: uppercase;
+  font-size: 12px;
+  width: 50%;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+<script type="text/javascript">
+
+document.getElementById('buttonid').addEventListener('click', openDialog);
+
+function openDialog() {
+  document.getElementById('fileid').click();
+}
+</script>
+
+
+<div class="profilepic" style="position: relative;z-index:9;height:125px;margin-top:-62.5px">
+  <div style="position: relative;top: 0;left: 0;">
+    <img class="profilepic__image" src="https://colorate.azurewebsites.net/SwatchColor/000000" width="130" height="130" alt="Profile picture" style="position: relative;top: 0;left: 0;"/>
+    <img class="profilepic__image" src="{% autoescape false %}{{pfpimg}}{% endautoescape %}" width="115" height="115" alt="Profile picture" style="position: absolute;top: 5px;left: 5px;border-radius:50%;"/>
+  </div>
+  <div class="profilepic__content">
+    <button id="myBtn" style="background-color:rgba(0, 0, 0, 0);border-color:rgba(0, 0, 0, 0);">
+      <p class="material-symbols-outlined">file_upload</p>
+    </button>
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="/uploader" method = "POST" enctype = "multipart/form-data">
+          <input type="file" name="file" id="file" hidden>
+          <label for="file"><p class="material-symbols-outlined" style="display:inline;">file_upload</p></label>
+          <p style="display:inline;">URL:</p>
+          <input type="text" name="url" id="url">
+          <input type="submit" id="submit" hidden>
+          <label for="submit"><p style="display:inline;">Save</p></label>
+      </form>
+    </div>
+</div>
+
+<script>
+var modal = document.getElementById("myModal");
+
+var btn = document.getElementById("myBtn");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</div>
+<div style="height:70%;background: linear-gradient(0deg, #333, #0091ff);margin-top:calc(125px / 2);border-top: solid black 1px;">
+<p style="margin: 0 0 0 calc(10vh + 135px);color:#ffffff;display:inline;">{{username}}</p>
+<a href="/profile/edit/member/{{user_id}}" style="float:right;display:inline;text-decoration:none;border-radius:5px;margin-right:10vw;margin-top:2vh;" class="hover-inverse-white"><p style="margin-left:2px;all: inherit;margin-right:0px;margin-top:0px;">Edit Profile</p> <p class="material-symbols-outlined" style="margin:0;transition:inherit;">edit</p></a>
+<br>
+<p style="margin: 0 0 0 calc(10vh + 135px);color:#ffffff;">{{bio}}</p>
+<a href="/logout" class="material-symbols-outlined" style="bottom:0px">logout</a>
+</div>
+</div>
+{% endblock %}

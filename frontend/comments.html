@@ -1,0 +1,10 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<embed style="width:90%;height:50%" src="comment">
+<form action="{{ url_for('send_comment') }}" method="post">
+    <input id="projectFilepath" type="text" name="projectFilepath" value="{{ request.form['projectFilepath'] }}"/>
+    <br>
+    <input type="submit">
+</form>
+{% endblock %}

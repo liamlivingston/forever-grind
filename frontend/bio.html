@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/edit_bio/{{user_id}}" method="post">
+    <p style="margin:0px;"> Edit bio:</p>
+    <input id="projectFilepath" type="text" name="projectFilepath" value="{{bio}}"/>
+    <p style="margin:0px;">Edit username:</p>
+    <input id="username" type="text" name="username" value="{{username}}"/>
+    <br>
+    <input type="submit">
+</form>
+{% endblock %}

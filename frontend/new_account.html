@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/send_new_account/{{user_id}}" method="post">
+    <input id="projectFilepath" type="text" name="projectFilepath" value="{{ request.form['projectFilepath'] }}"/>
+    <br>
+    <input type="submit">
+</form>
+{% endblock %}

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-9TE8J6SXLL"></script>-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9TE8J6SXLL');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html,#main {
+  height: 100%;
+  padding: 0; 
+  margin: 0;
+  font: 400 15px/1.8 "Lato", sans-serif;
+  color: #777;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.material-symbols-outlined {
+  font-size: 24px;
+  bottom: 0px;
+  padding-right: 5px;
+  text-decoration: none;
+  color:inherit;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+
+span {
+  font-size:20px;
+  padding-right:3px;
+}
+
+img {
+  display: inline-block; 
+  float: left;
+  } 
+
+h2 {
+  letter-spacing: 3px;
+  font: 20px "Lato", sans-serif;
+  color: #ffffff;
+  display: inline-block;
+  margin-top:0;
+  margin-bottom:0;
+  bottom: 3px;
+  position: relative;
+  line-height: 32px;
+  text-align: center;
+}
+
+a {
+  
+}
+
+h3 {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font: 30px "Lato", sans-serif;
+  color: #111;
+}
+
+p{
+font-size: 20px;
+color: white;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height:12vh
+}
+
+.navbar a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 0px 8px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background: #545454;
+}
+
+.footer-basic {
+  padding:40px 0;
+  background-color:#333;
+  color:#4b4c4d;
+}
+
+.footer-basic ul {
+  padding:0;
+  list-style:none;
+  text-align:center;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+.footer-basic li {
+  padding:0 10px;
+}
+
+.footer-basic ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity:1;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.footer-basic .social {
+  text-align:center;
+  padding-bottom:25px;
+}
+
+.footer-basic .social > a {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  margin:0 8px;
+  opacity:0.75;
+  color:#ffffff;
+}
+
+.footer-basic .social > a:hover {
+  color:#3f4040;
+  background-color:#ffffff;
+  transition: 0.3s;
+}
+
+.footer-basic .copyright {
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:0;
+}
+
+.hover-inverse-white{
+  background-color: transparent;
+  color:#ffffff;
+}
+
+.hover-inverse-white:hover {
+  background-color:#ffffff;
+  color:black;
+  transition: 0.3s;
+}
+
+.profilepic {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #111;
+}
+
+.profilepic:hover .profilepic__content {
+  opacity: 1;
+}
+
+.profilepic:hover .profilepic__image {
+  opacity: .5;
+}
+
+.profilepic__image {
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: white;
+  padding-bottom: 8px;
+}
+
+.fas {
+  font-size: 20px;
+}
+
+.profilepic__text {
+  text-transform: uppercase;
+  font-size: 12px;
+  width: 50%;
+  text-align: center;
+}
+
+.title:hover {
+  color:#ffffff;
+  text-decoration:underline;
+  transition: 0.3s;
+}
+
+.dropbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 0px;
+  font-size: 16px;
+  border: none;
+  height:6vh;
+  width: 6vh;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+</style>
+
+
+</head>
+<body>
+<div class="navbar" style="position:fixed;z-index:10;">
+  <a href="http://127.0.0.1:5000/{% autoescape false %}{{home}}{% endautoescape %}" style="float:left;padding:.5vh;" class="title"><img src="/static/download.png" alt="logo" style="height:11vh;width:11vh;margin:0;"><h3 style="float:left;color:#ffffff;padding-left:15px;margin-bottom:3vh;margin-top:3vh;height:5vh;font-size:5vh">Forever Grind</h3></a>
+  <a href="http://127.0.0.1:5000{{sip}}" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;{{hp}};{% block header %}{% if "google_id" in session %}margin-top:3vh;{% else %}margin-top:4vh;height:4vh;{% endif %}{% endblock %}" class="title">{% autoescape false %}{{pfp}}{% endautoescape %}
+  <a href="http://127.0.0.1:5000/discussion{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hd}};" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">forum</h2><h2 style="color:inherit;text-decoration:inherit;">Discussion</h2></a>
+  <a href="http://127.0.0.1:5000/learn{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hl}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">school</h2><h2 style="color:inherit;text-decoration:inherit;">Learn</h2></a>
+  <a href="http://127.0.0.1:5000/{% autoescape false %}{{home}}{% endautoescape %}#about" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{ha}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">group</h2><h2 style="color:inherit;text-decoration:inherit;">About us</h2></a>
+  <a href="http://127.0.0.1:5000/{% autoescape false %}{{home}}{% endautoescape %}#top" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hh}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">home</h2><h2 style="color:inherit;text-decoration:inherit;">Home</h2></a>
+</div>
+<div style="margin-top:12vh">
+</div>
+
+{% block content %}
+{% endblock %}
+
+
+
+<div class="footer-basic">
+        <footer>
+            <div class="social"><a href="/instagram" target="_blank"><i class="fa fa-instagram" style="margin-top:8px;"></i></a><a href="/youtube" target="_blank"><i class="fa fa-youtube" style="margin-top:8px;"></i></a><a href="/twitter" style="margin-top:8px;" target="_blank"><i class="fa fa-twitter" style="margin-top:8px;"></i></a><a href="/discord" target="_blank"><i class="fa fa-discord" style="margin-top:8px;" aria-hidden="true"></i></a></div>
+            <ul class="list-inline">
+                <li class="list-inline-item" style="color:white"><a href="/">Home</a></li>
+                <li class="list-inline-item" style="color:white"><a href="/about">About us</a></li>
+                <li class="list-inline-item" style="color:white"><a href="/learn">Learn</a></li>
+                <li class="list-inline-item" style="color:white"><a href="/discussion">Discussion</a></li>
+            </ul>
+            <p class="copyright">Forever Grind © 2022</p>
+        </footer>
+    </div>
+
