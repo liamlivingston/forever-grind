@@ -347,12 +347,24 @@ def bio(user_id):
 	if "google_id" not in session:
 		return redirect("/sign_in")
 	else:
+		pfp = session["pfp"]
+		if str(pfp) == "None":
+			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
+				pfp = f"/static/users/{user_id}/pfp.png"
+			else:
+				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
+					pfp = "/static/users/defualt/pfp.png"
+		sip = f"/profile/member/{user_id}"
+		pfpimg = pfp
+		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
+		home = f"http://127.0.0.1:5000/member/{user_id}"
+		highlight = "width:6vh;border-radius:5px"
 		usernames = dics_from_file("data/usernames.txt")
 		username = usernames[user_id]
 		f = open(f"data/{user_id}/bio.html", "r+")
 		bio = f.read()
 		f.close()
-		return flask.render_template("bio.html", user_id=user_id, bio=bio, username=username)
+		return flask.render_template("bio.html", pfp=pfp, pfpimg=pfpimg, sip=sip, user_id=user_id, home=home, username=username, bio=bio, hp=highlight)
 
 @app.route("/edit_bio/<user_id>", methods=['POST'])
 def edit_bio(user_id):
