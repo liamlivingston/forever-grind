@@ -5,17 +5,7 @@
 <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-9TE8J6SXLL"></script>-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-9TE8J6SXLL');
-
-function dropdown() {
-  document.getElementById("dropdown_menu").classList.toggle("show");
-}
-</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -64,10 +54,6 @@ h2 {
   position: relative;
   line-height: 32px;
   text-align: center;
-}
-
-a {
-  
 }
 
 h3 {
@@ -240,15 +226,6 @@ color: white;
   transition: 0.3s;
 }
 
-.dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 0px;
-  font-size: 16px;
-  border: none;
-  height:6vh;
-  width: 6vh;
-}
 
 .dropdown {
   position: relative;
@@ -260,9 +237,8 @@ color: white;
   position: absolute;
   top: 12vh;
   right:0;
-  z-index: 11;
+  z-index: 1001;
   background-color: #f1f1f1;
-  min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
@@ -270,13 +246,13 @@ color: white;
   color: black;
   text-decoration: none;
   display: block;
+  padding: 0 5px 0 5px;
 }
 
 .dropdown-content a:hover {background-color: #ddd;}
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 .show {display: block;}
 
@@ -287,7 +263,11 @@ color: white;
 <body>
 <div class="navbar" style="position:fixed;z-index:10;">
   <a href="{% autoescape false %}{{home}}{% endautoescape %}#top" style="float:left;padding:.5vh;" class="title"><img src="/static/download.png" alt="logo" style="height:11vh;width:11vh;margin:0;"><h3 style="float:left;color:#ffffff;padding-left:15px;margin-bottom:3vh;margin-top:3vh;height:5vh;font-size:5vh">Forever Grind</h3></a>
-  <a {{signed_out}} style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;{{hp}};{% block header %}{% if "google_id" in session %}margin-top:3vh;" onclick="dropdown() {% else %}margin-top:4vh;height:4vh;{% endif %}{% endblock %}" class="title">{% autoescape false %}{{pfp}}{% endautoescape %}
+
+
+  {% autoescape false %} 
+{{sip}}
+{% endautoescape %} 
   <a href="http://127.0.0.1:5000/discussion{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hd}};" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">forum</h2><h2 style="color:inherit;text-decoration:inherit;">Discussion</h2></a>
   <a href="http://127.0.0.1:5000/learn{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hl}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">school</h2><h2 style="color:inherit;text-decoration:inherit;">Learn</h2></a>
   <a href="{% autoescape false %}{{home}}{% endautoescape %}#about" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{ha}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">group</h2><h2 style="color:inherit;text-decoration:inherit;">About us</h2></a>
@@ -303,7 +283,7 @@ color: white;
 
 <div class="footer-basic">
         <footer>
-            <div class="social"><a href="/instagram" target="_blank"><i class="fa fa-instagram" style="margin-top:8px;"></i></a><a href="/youtube" target="_blank"><i class="fa fa-youtube" style="margin-top:8px;"></i></a><a href="/twitter" style="margin-top:8px;" target="_blank"><i class="fa fa-twitter" style="margin-top:8px;"></i></a><a href="/discord" target="_blank"><i class="fa fa-discord" style="margin-top:8px;" aria-hidden="true"></i></a></div>
+            <div class="social"><a href="/instagram" target="_blank"><i class="fa fa-instagram" style="margin-top:8px;"></i></a><a href="/youtube" target="_blank"><i class="fa fa-youtube" style="margin-top:8px;"></i></a><a href="/github" style="margin-top:8px;" target="_blank"><i class="fa fa-github" style="margin-top:8px;"></i></a><a href="/discord" target="_blank"><i class="fa fa-discord" style="margin-top:8px;" aria-hidden="true"></i></a></div>
             <ul class="list-inline">
                 <li class="list-inline-item" style="color:white"><a href="/">Home</a></li>
                 <li class="list-inline-item" style="color:white"><a href="/about">About us</a></li>
@@ -314,8 +294,29 @@ color: white;
         </footer>
     </div>
 
-    <div id="dropdown_menu" class="dropdown-content">
-      <a href="http://127.0.0.1:5000{{sip}}">Profile</a>
-      <a href="/settings">Settings</a>
-      <a href="/logout">Sign out</a>
+    <div id="myDropdown" class="dropdown-content">
+      <a href="http://127.0.0.1:5000/profile"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Person</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Profile</h2></a>
+      <a href="/settings"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Settings</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Settings</h2></a>
+      <a href="/logout"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Logout</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Sign out</h2></a>
     </div>
+    
+    <div onclick="dropdown()" class="dropbtn">Dropdown</div>
+
+<script>
+function dropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
