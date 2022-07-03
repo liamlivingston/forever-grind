@@ -116,7 +116,7 @@ function openDialog() {
 <div class="profilepic" style="position: relative;z-index:9;height:125px;margin-top:-62.5px">
   <div style="position: relative;top: 0;left: 0;">
     <img class="profilepic__image" src="https://colorate.azurewebsites.net/SwatchColor/000000" width="130" height="130" alt="Profile picture" style="position: relative;top: 0;left: 0;"/>
-    <img class="profilepic__image" src="{% autoescape false %}{{pfpimg}}{% endautoescape %}" width="115" height="115" alt="Profile picture" style="position: absolute;top: 5px;left: 5px;border-radius:50%;"/>
+    <img class="profilepic__image" src="{% autoescape false %}{{pfp}}{% endautoescape %}" width="115" height="115" alt="Profile picture" style="position: absolute;top: 5px;left: 5px;border-radius:50%;"/>
   </div>
   <div class="profilepic__content">
     <button id="myBtn" style="background-color:rgba(0, 0, 0, 0);border-color:rgba(0, 0, 0, 0);">
@@ -131,7 +131,7 @@ function openDialog() {
       <form action="/uploader" method = "POST" enctype = "multipart/form-data">
           <input type="file" name="file" id="file" hidden>
           <label for="file"><p class="material-symbols-outlined" style="display:inline;">file_upload</p></label>
-          <p style="display:inline;">URL:</p>
+          <p style="display:inline;color:#000000;">URL:</p>
           <input type="text" name="url" id="url">
           <input type="submit" id="submit" hidden>
           <label for="submit"><p style="display:inline;">Save</p></label>
