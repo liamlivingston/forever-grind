@@ -268,10 +268,10 @@ color: white;
   {% autoescape false %} 
 {{sip}}
 {% endautoescape %} 
-  <a href="http://127.0.0.1:5000/discussion{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hd}};" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">forum</h2><h2 style="color:inherit;text-decoration:inherit;">Discussion</h2></a>
-  <a href="http://127.0.0.1:5000/learn{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hl}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">school</h2><h2 style="color:inherit;text-decoration:inherit;">Learn</h2></a>
-  <a href="{% autoescape false %}{{home}}{% endautoescape %}#about" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{ha}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">group</h2><h2 style="color:inherit;text-decoration:inherit;">About us</h2></a>
-  <a href="{% autoescape false %}{{home}}{% endautoescape %}#top" style="margin-top:4vh;margin-bottom:4vh;height:4vh;{{hh}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">home</h2><h2 style="color:inherit;text-decoration:inherit;">Home</h2></a>
+  <a href="http://127.0.0.1:5000/discussion{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hd}};" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">forum</h2><h2 style="color:inherit;text-decoration:inherit;">Discussion</h2></a>
+  <a href="http://127.0.0.1:5000/learn{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hl}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">school</h2><h2 style="color:inherit;text-decoration:inherit;">Learn</h2></a>
+  <a href="{% autoescape false %}{{home}}{% endautoescape %}#about" onclick="about()"style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{ha}}" class="title" id="about_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">group</h2><h2 style="color:inherit;text-decoration:inherit;">About us</h2></a>
+  <a href="{% autoescape false %}{{home}}{% endautoescape %}#top" onclick="home()"style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hh}}" class="title" id="home_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">home</h2><h2 style="color:inherit;text-decoration:inherit;">Home</h2></a>
 </div>
 <div style="margin-top:12vh">
 </div>
@@ -318,4 +318,16 @@ window.onclick = function(event) {
     }
   }
 }
+
+
+function about(){
+  document.getElementById("about_color").style.background="#0091ff";
+  document.getElementById("home_color").style.background="#333";
+}
+
+function home(){
+  document.getElementById("home_color").style.background="#0091ff";
+  document.getElementById("about_color").style.background="#333";
+}
+
 </script>
