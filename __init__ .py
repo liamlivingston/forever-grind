@@ -96,11 +96,10 @@ def index():
 	if logged_in() is False:  #authorization required
 		signed_out = 'href=/sign_in'
 		home = ""
-		highlight = ";border-radius:5px"
 		sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 		sorl = "Get started"
 		sorll = "/sign_in"
-		highlight = "background-color:#0091ff;border-radius:5px"
+		highlight = "background-color:#0091ff;"
 		becomemember = '<div style="top:32.5vh;position:absolute;text-align:center;width:100%"><h2 style="background: rgba(51, 51, 51, 0.75); border-radius: 10px; padding: 5px">Become a member today</h2></div>'
 		return flask.render_template("home.html", sip=sip, signed_out=signed_out, home=home, hh=highlight, sorl=sorl, sorll=sorll, becomemember=becomemember)
 	else:
@@ -118,7 +117,7 @@ def member(user_id):
 					pfp = "/static/users/defualt/pfp.png"
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		userid = f'/member/{user_id}'
-		highlight = "background-color:#0091ff;border-radius:5px"
+		highlight = "background-color:#0091ff;"
 		hp = "width:6vh"
 		sorl = "Suggested workouts"
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;{hp};"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
@@ -137,7 +136,7 @@ def disc():
 		signed_out = 'href=/sign_in'
 		sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 		home= "/"
-		highlight = "background-color:#0091ff;border-radius:5px"
+		highlight = "background-color:#0091ff;"
 		return flask.render_template("disc.html", signed_out=signed_out, sip=sip, home=home, hd=highlight)
 
 @app.route("/discussion/member/<user_id>")
@@ -155,7 +154,7 @@ def disc_member(user_id):
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
-		highlight = "background-color:#0091ff;border-radius:5px"
+		highlight = "background-color:#0091ff;"
 		hp = "width:6vh"
 		return flask.render_template("disc.html", sip=sip, user_id=user_id, home=home, hd=highlight, hp=hp)
 
@@ -222,7 +221,7 @@ def sign_in():
 		return redirect(f"/profile/member/{session['google_id']}")
 	signed_out = 'href=/sign_in'
 	home = "/"
-	highlight = "background-color:#0091ff;border-radius:5px"
+	highlight = "background-color:#0091ff;"
 	sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 	return flask.render_template("sign_in.html", signed_out=signed_out, home=home, sip=sip, hp=highlight)
 
@@ -272,7 +271,7 @@ def learn():
 		signed_out = 'href=/sign_in'
 		sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 		home = "/"
-		highlight = "background-color:#0091ff;border-radius:5px"
+		highlight = "background-color:#0091ff;"
 		return flask.render_template("learn.html", sip=sip, signed_out=signed_out, home=home, hl=highlight)
 
 @app.route("/learn/member/<user_id>")
@@ -289,7 +288,7 @@ def learn_member(user_id):
 					pfp = "/static/users/defualt/pfp.png"
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
-		highlight = "background-color:#0091ff;border-radius:5px"
+		highlight = "background-color:#0091ff;"
 		hp = "width:6vh"
 		home = f"http://127.0.0.1:5000/member/{user_id}"
 		return flask.render_template("learn.html", sip=sip, user_id=user_id, hl=highlight, hp=hp, home=home)
