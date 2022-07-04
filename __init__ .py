@@ -402,6 +402,10 @@ def upload_file():
 def discord():
 	return redirect("https://discord.gg/wjPUaVHZSQ")
 
+@app.route('/github')
+def github():
+	return redirect("https://github.com/liamlivingston/forever-grind")
+
 if __name__ == "__main__":
 	app.run()
 
