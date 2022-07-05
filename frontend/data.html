@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<div style="height: 30vh; border-radius: 5vh; border: black solid 2px; margin: calc(12vh + 3vh) 20vw 3vh 20vw;">
+    {% autoescape false %}
+    {{goal_or_add}}
+    {% endautoescape %}
+</div>
+<script>
+var xValues = [{{time_data}}];
+var yValues = [{{unit_data}}];
+
+new Chart("Chart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: true,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)", //dots
+      borderColor: "rgba(0,0,255,0.1)", //lines
+      data: yValues
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    legend: {display: false},
+    scales: {
+        yAxes: [{
+            ticks: {stepSize: 2, min: 6, max:16},
+            stacked: true,
+        }],
+        yAxes: [{
+            scaleLabel: {
+                display: true,
+                labelString: '{{units}}'
+            }
+        }],
+        xAxes: [{
+            scaleLabel: {
+                display: true,
+                labelString: '{{time_unit}}'
+            }
+        }]
+    }
+    
+  }
+});
+</script>
+
+{% endblock %}
