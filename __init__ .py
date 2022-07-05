@@ -15,13 +15,13 @@ from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
 import os.path
-app = Flask("Google Login App")  #naming our application
+app = Flask("Forever Grind")
 app.secret_key = "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"  #it is necessary to set a password when dealing with OAuth 2.0
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  #this is to set our environment to https because OAuth 2.0 only supports https environments
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 UPLOAD_FOLDER = 'data/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_PATH'] = 1024 * 1024 * 100
+app.config['MAX_CONTENT_PATH'] = 1024 * 1024 * 2
 GOOGLE_CLIENT_ID = "589724773316-f1ap4c3q7ou8m35rl4q28i5lld528e14.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
 #user_id refers to the google_id number
@@ -53,7 +53,6 @@ def logged_in():#checks if user is logged in
         return True
     else:
         return False
-		
 
 @app.route("/login_google")  #the page where the user can login
 def login():
@@ -174,18 +173,20 @@ def form():
 
 @app.route("/comments")
 def comments():
-	f = open("templates/comments.html", "r+")
-	cont = f.read()
-	f.close()
+	with open("templates/comments.html", "r+") as f:
+		cont = f.read()
 	return flask.render_template("comments.html")
 
 @app.route("/send_comment", methods=['POST'])
 def send_comment():
+	user_id = session["google_id"]
+	usernames = dics_from_file("data/usernames.txt")
+	username = usernames[user_id]
 	projectpath = request.form['projectFilepath']
 	now = datetime.now()
 	time = now.strftime("%H:%M:%S")
 	f = open("templates/comment.html", "a")
-	f.write(f"[{time}] <b>{user_id}</b>: {projectpath}<br>")
+	f.write(f"[{time}] <b>{username}</b>: {projectpath}<br>")
 	f.flush()
 	f.close()
 	return redirect("comments", code=302)
@@ -316,6 +317,7 @@ def profile():
 		return redirect(f"/profile/member/{session['google_id']}")
 	else:
 		return redirect("sign_in")
+
 @app.route("/profile/member/<user_id>")
 def profile_member(user_id):
 	if "google_id" not in session:
@@ -339,6 +341,7 @@ def profile_member(user_id):
 		if bio == "":
 			bio = "No bio"
 		return flask.render_template("profile.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, bio=bio, hp=highlight)
+
 @app.route(f"/profile/edit/member/<user_id>")
 def bio(user_id):
 	if "google_id" not in session:
@@ -374,6 +377,50 @@ def edit_bio(user_id):
 		f.close()
 		return redirect(f"/profile/member/{user_id}", code=302)
 
+@app.route("/data/member/<user_id>")
+def data_member(user_id):
+	if logged_in() is True:
+		pfp = session["pfp"]
+		if str(pfp) == "None":
+			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
+				pfp = f"/static/users/{user_id}/pfp.png"
+			else:
+				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
+					pfp = "/static/users/defualt/pfp.png"
+		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
+		home = f"http://127.0.0.1:5000/member/{user_id}"
+		highlight = "width:6vh;border-radius:5px"
+		usernames = dics_from_file("data/usernames.txt")
+		username = usernames[user_id]
+		if os.path.isdir(f"/server/flask/data/data_page/{user_id}") is False:
+			os.system(f"mkdir /server/flask/data/data_page/{user_id}")
+			os.system(f"touch /server/flask/data/data_page/{user_id}/goals.txt")
+			with open(f"/server/flask/data/data_page/{user_id}/goals.txt", "w+") as f:
+				f.write('''{
+    "goals": "",
+    "time_data": "",
+    "unit_data":  "",
+    "units": "",
+    "time_units": ""
+}''')
+		goals_data = dics_from_file(f"/server/flask/data/data_page/{user_id}/goals.txt")
+		a = "placeholder"
+		goals = goals_data["goals"]#title
+		time_data = goals_data["time_data"]#x axis
+		unit_data = goals_data["unit_data"]#y axis
+		units = goals_data["units"]#pounds, kgs, minutes
+		time_units = goals_data["time_units"]#ex. days, months, years
+		if goals == "":
+			goal_or_add = '<a href="a" style="display: block; margin: 12.5vh auto 12.5vh auto; height:5vh; width: 10vw; border-radius: 3vh; border: solid #000000 2px; text-align: center; vertical-align: middle; font-size: 2vh">add goals</a>'
+		else:
+			goal_or_add = f'''<h2 style="height: 5vh; color: #000000; margin: 2vh 0 2vh 2vw;">
+        Goals: {goals}
+    </h2>
+    <canvas id="Chart" style="max-height: 20vh; max-width: 55vw; display: block; margin-left: auto; margin-right: auto;"></canvas>'''
+		return flask.render_template("data.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, hp=highlight, goals=goals, time_data=time_data, unit_data=unit_data, units=units, time_units=time_units, goal_or_add=goal_or_add)
+	else:
+		redirect("/")
+
 @app.route('/uploader', methods=['POST'])
 def upload_file():
 	if request.method == 'POST':
@@ -408,5 +455,3 @@ def github():
 
 if __name__ == "__main__":
 	app.run()
-
-
