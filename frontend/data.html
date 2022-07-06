@@ -18,10 +18,10 @@ new Chart("Chart", {
     labels: xValues,
     datasets: [{
       fill: true,
-      lineTension: 0,
       backgroundColor: "rgba(0,0,255,1.0)", //dots
       borderColor: "rgba(0,0,255,0.1)", //lines
-      data: yValues
+      data: yValues,
+      spanGaps: true
     }]
   },
   options: {
@@ -29,7 +29,7 @@ new Chart("Chart", {
     legend: {display: false},
     scales: {
         yAxes: [{
-            ticks: {stepSize: 2, min: 6, max:16},
+            ticks: {stepSize: 2, min: 4, max:6},
             stacked: true,
         }],
         yAxes: [{
