@@ -54,6 +54,16 @@ def logged_in():#checks if user is logged in
     else:
         return False
 
+def get_pfp(user_id):
+	pfp = session["pfp"]
+	if str(pfp) == "None":
+		if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
+			pfp = f"/static/users/{user_id}/pfp.png"
+		else:
+			if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
+				pfp = "/static/users/defualt/pfp.png"
+	return(pfp)
+
 @app.route("/login_google")  #the page where the user can login
 def login():
 	authorization_url, state = flow.authorization_url()  #asking the flow class for the authorization (login) url
@@ -107,22 +117,15 @@ def index():
 @app.route("/member/<user_id>")
 def member(user_id):
 	if logged_in() is True:
-		pfp = session["pfp"]
-		if str(pfp) == "None":
-			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
-				pfp = f"/static/users/{user_id}/pfp.png"
-			else:
-				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
-					pfp = "/static/users/defualt/pfp.png"
+		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		userid = f'/member/{user_id}'
-		highlight = "background-color:#0091ff;"
 		hp = "width:6vh"
 		sorl = "Suggested workouts"
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;{hp};"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		sorll = "/learn"
 		home = f"http://127.0.0.1:5000/member/{user_id}"
-		return flask.render_template("home.html", sip=sip, userid=userid, hh=highlight, hp=hp, sorl=sorl, sorll=sorll, home=home)
+		return flask.render_template("home.html", sip=sip, userid=userid, hp=hp, sorl=sorl, sorll=sorll, home=home)
 	else:
 		return redirect("/#top")
 
@@ -143,13 +146,7 @@ def disc_member(user_id):
 	if "google_id" not in session:
 		return redirect("/discussion")
 	else:
-		pfp = session["pfp"]
-		if str(pfp) == "None":
-			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
-				pfp = f"/static/users/{user_id}/pfp.png"
-			else:
-				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
-					pfp = "/static/users/defualt/pfp.png"
+		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
@@ -280,13 +277,7 @@ def learn_member(user_id):
 	if "google_id" not in session:
 		return redirect("/learn")
 	else:
-		pfp = session["pfp"]
-		if str(pfp) == "None":
-			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
-				pfp = f"/static/users/{user_id}/pfp.png"
-			else:
-				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
-					pfp = "/static/users/defualt/pfp.png"
+		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
 		highlight = "background-color:#0091ff;"
@@ -323,13 +314,7 @@ def profile_member(user_id):
 	if "google_id" not in session:
 		return redirect("/profile")
 	else:
-		pfp = session["pfp"]
-		if str(pfp) == "None":
-			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
-				pfp = f"/static/users/{user_id}/pfp.png"
-			else:
-				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
-					pfp = "/static/users/defualt/pfp.png"
+		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
 		highlight = "width:6vh;border-radius:5px"
@@ -347,13 +332,7 @@ def bio(user_id):
 	if "google_id" not in session:
 		return redirect("/sign_in")
 	else:
-		pfp = session["pfp"]
-		if str(pfp) == "None":
-			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
-				pfp = f"/static/users/{user_id}/pfp.png"
-			else:
-				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
-					pfp = "/static/users/defualt/pfp.png"
+		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
@@ -377,16 +356,14 @@ def edit_bio(user_id):
 		f.close()
 		return redirect(f"/profile/member/{user_id}", code=302)
 
+@app.route("/data")
+def data():
+	return redirect(f"/data/member/{session['google_id']}")
+
 @app.route("/data/member/<user_id>")
 def data_member(user_id):
 	if logged_in() is True:
-		pfp = session["pfp"]
-		if str(pfp) == "None":
-			if os.path.exists(f"/server/flask/static/users/{user_id}/pfp.png"):
-				pfp = f"/static/users/{user_id}/pfp.png"
-			else:
-				if not os.path.exists(f"/server/flask/static/flask/users/{user_id}/pfp.png"):
-					pfp = "/static/users/defualt/pfp.png"
+		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
 		highlight = "width:6vh;border-radius:5px"
@@ -404,7 +381,6 @@ def data_member(user_id):
     "time_units": ""
 }''')
 		goals_data = dics_from_file(f"/server/flask/data/data_page/{user_id}/goals.txt")
-		a = "placeholder"
 		goals = goals_data["goals"]#title
 		time_data = goals_data["time_data"]#x axis
 		unit_data = goals_data["unit_data"]#y axis
@@ -413,9 +389,10 @@ def data_member(user_id):
 		if goals == "":
 			goal_or_add = '<a href="a" style="display: block; margin: 12.5vh auto 12.5vh auto; height:5vh; width: 10vw; border-radius: 3vh; border: solid #000000 2px; text-align: center; vertical-align: middle; font-size: 2vh">add goals</a>'
 		else:
-			goal_or_add = f'''<h2 style="height: 5vh; color: #000000; margin: 2vh 0 2vh 2vw;">
+			goal_or_add = f'''<h2 style="height: 5vh; color: #000000; margin: 2vh 0 2vh 2vw; display: inline-block;">
         Goals: {goals}
     </h2>
+	<h2 onclick="goals_settings" class="material-symbols-outlined" style="display: inline-block; float: right; margin: 2vh 2vw 2vh 0;">menu</h2>
     <canvas id="Chart" style="max-height: 20vh; max-width: 55vw; display: block; margin-left: auto; margin-right: auto;"></canvas>'''
 		return flask.render_template("data.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, hp=highlight, goals=goals, time_data=time_data, unit_data=unit_data, units=units, time_units=time_units, goal_or_add=goal_or_add)
 	else:
