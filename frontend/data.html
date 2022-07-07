@@ -3,11 +3,32 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
+<style>
+.dropdown-goals {
+  display: none;
+  position: ;
+  top: 12vh;
+  right:0;
+  z-index: 1001;
+  background-color: #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  margin-top: 5vh;
+}
+
+.dropdown-goals a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 0 5px 0 5px;
+}
+</style>
+
 <div style="height: 30vh; border-radius: 5vh; border: black solid 2px; margin: calc(12vh + 3vh) 20vw 3vh 20vw;">
     {% autoescape false %}
     {{goal_or_add}}
     {% endautoescape %}
 </div>
+<div style="height: 100vh;"></div>
 <script>
 var xValues = [{{time_data}}];
 var yValues = [{{unit_data}}];
@@ -48,6 +69,24 @@ new Chart("Chart", {
     
   }
 });
+
+function goals_settings(){
+  document.getElementById("dropdown-goals").style.display="block";
+}
+
+document.addEventListener("click", function(event){
+    if (event.target.id != "button"){
+        goals_settings_close();
+    }
+});
+
+
+
+function goals_settings_close(){
+  document.getElementById("dropdown-goals").style.display="none";
+}
+
+
 </script>
 
 {% endblock %}
