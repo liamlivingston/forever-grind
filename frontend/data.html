@@ -80,12 +80,52 @@ document.addEventListener("click", function(event){
     }
 });
 
+document.addEventListener("click", function(event){
+    if (event.target.id != "add"){
+        add_close();
+    }
+    else{
+        add();
+    }
+});
+
+document.addEventListener("click", function(event){
+    if (event.target.id != "edit"){
+        edit_close();
+    }
+    else{
+        edit();
+    }
+});
 
 
 function goals_settings_close(){
   document.getElementById("dropdown-goals").style.display="none";
 }
 
+function add(){
+    document.getElementById("add_menu").style.display="block";
+}
+function edit(){
+    document.getElementById("edit_menu").style.display="block";
+}
+function add_close(){
+    document.getElementById("add_menu").style.display="none";
+}
+function edit_close(){
+    document.getElementById("edit_menu").style.display="none";
+}
+
+function remove(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/edit_goals/112664632003566772529', true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        }
+    }
+    xhr.send("remove=True");
+}
 
 </script>
 
