@@ -375,6 +375,7 @@ def data_member(user_id):
 		username = usernames[user_id]
 		if os.path.isdir(f"/server/flask/data/data_page/{user_id}") is False:
 			os.system(f"mkdir /server/flask/data/data_page/{user_id}")
+		if os.path.exists(f"/server/flask/data/data_page/{user_id}/goals.txt") is False:
 			os.system(f"touch /server/flask/data/data_page/{user_id}/goals.txt")
 			with open(f"/server/flask/data/data_page/{user_id}/goals.txt", "w+") as f:
 				f.write('''{
@@ -396,12 +397,12 @@ def data_member(user_id):
 			goal_or_add = f'''<h2 style="height: 5vh; color: #000000; margin: 2vh 0 2vh 2vw; display: inline-block;">
         Goals: {goals}
     </h2>
-	<a onclick="goals_settings()" href="javascript:;" style="display: inline-block; float: right; margin: 2vh 2vw 2vh 0;"><h2 class="material-symbols-outlined" id="button">menu</h2></a>
+	<a onclick="goals_settings()" href="javascript:;" style="display: inline-block; float: right; margin: 2vh 2vw 2vh 0;"><h2 class="material-symbols-outlined" id="button" style="color:#000000">menu</h2></a>
 	<div style="height:0;position:relative;float:right;">
 	<div id="dropdown-goals" class="dropdown-goals">
-        <a href="javascript:;"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Add</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Add Data</h2></a>
-        <a href="javascript:;"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Edit</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Edit Goal</h2></a>
-        <a href="javascript:;"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Delete</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Remove Goal</h2></a>
+        <a href="javascript:;" id="add"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Add</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Add Data</h2></a>
+        <a href="javascript:;" id="edit"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Edit</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Edit Goal</h2></a>
+        <a href="javascript:;" id="remove" onclick="remove()"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Delete</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Remove Goal</h2></a>
     </div>
 	</div>
     <canvas id="Chart" style="max-height: 20vh; max-width: 55vw; display: block; margin-left: auto; margin-right: auto;"></canvas>'''
@@ -409,11 +410,22 @@ def data_member(user_id):
 	else:
 		redirect("/")
 
-@app.route('/uploader', methods=['POST'])
+@app.route("/edit_goals/<user_id>", methods=["POST"])
+def edit_goals(user_id):
+	if "google_id" not in session:
+		return redirect("/sign_in")
+	else:
+		if request.form["remove"] == "True":
+			if os.path.exists(f"/server/flask/data/data_page/{user_id}/goals.txt") is True:
+				os.system(f"rm /server/flask/data/data_page/{user_id}/goals.txt")
+				return redirect("/sign_in")
+	return 300
+
+@app.route("/uploader", methods=["POST"])
 def upload_file():
-	if request.method == 'POST':
-		user_id = session['google_id']
-		f = request.files['file']
+	if request.method == "POST":
+		user_id = session["google_id"]
+		f = request.files["file"]
 		url = request.form["url"]
 		if str(f) != "<FileStorage: '' ('application/octet-stream')>":
 			f.save(secure_filename(f.filename))
