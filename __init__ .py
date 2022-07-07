@@ -396,7 +396,14 @@ def data_member(user_id):
 			goal_or_add = f'''<h2 style="height: 5vh; color: #000000; margin: 2vh 0 2vh 2vw; display: inline-block;">
         Goals: {goals}
     </h2>
-	<h2 onclick="goals_settings" class="material-symbols-outlined" style="display: inline-block; float: right; margin: 2vh 2vw 2vh 0;">menu</h2>
+	<a onclick="goals_settings()" href="javascript:;" style="display: inline-block; float: right; margin: 2vh 2vw 2vh 0;"><h2 class="material-symbols-outlined" id="button">menu</h2></a>
+	<div style="height:0;position:relative;float:right;">
+	<div id="dropdown-goals" class="dropdown-goals">
+        <a href="javascript:;"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Add</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Add Data</h2></a>
+        <a href="javascript:;"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Edit</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Edit Goal</h2></a>
+        <a href="javascript:;"><h2 class="material-symbols-outlined" style="margin-top:.5vh;font-size: 20px;">Delete</h2><h2 style="color:inherit;font-size: 17px;letter-spacing: 1px;">Remove Goal</h2></a>
+    </div>
+	</div>
     <canvas id="Chart" style="max-height: 20vh; max-width: 55vw; display: block; margin-left: auto; margin-right: auto;"></canvas>'''
 		return flask.render_template("data.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, goals=goals, time_data=time_data, unit_data=unit_data, units=units, time_units=time_units, goal_or_add=goal_or_add)
 	else:
