@@ -263,10 +263,10 @@ color: white;
 {{sip}}
 {% endautoescape %}
 
-  <a href="http://127.0.0.1:5000/discussion{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hd}};" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">forum</h2><h2 style="color:inherit;text-decoration:inherit;">Discussion</h2></a>
-  <a href="http://127.0.0.1:5000/learn{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hl}}" class="title"><h2 class="material-symbols-outlined" style="margin-top:.5vh">school</h2><h2 style="color:inherit;text-decoration:inherit;">Learn</h2></a>
-  <a href="{% autoescape false %}{{home}}{% endautoescape %}#about" onclick="about()"style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{ha}}" class="title" id="about_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">group</h2><h2 style="color:inherit;text-decoration:inherit;">About us</h2></a>
-  <a href="{% autoescape false %}{{home}}{% endautoescape %}#top" onclick="home()"style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hh}}" class="title" id="home_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">home</h2><h2 style="color:inherit;text-decoration:inherit;">Home</h2></a>
+  <a href="http://127.0.0.1:5000/discussion{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hd}};" class="title" id="disc_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">forum</h2><h2 style="color:inherit;text-decoration:inherit;">Discussion</h2></a>
+  <a href="http://127.0.0.1:5000/learn{% autoescape false %}{{userid}}{% endautoescape %}" style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hl}}" class="title" id="learn_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">school</h2><h2 style="color:inherit;text-decoration:inherit;">Learn</h2></a>
+  <a href="{% autoescape false %}{{home}}{% endautoescape %}#about"style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{ha}}" class="title" id="about_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">group</h2><h2 style="color:inherit;text-decoration:inherit;">About us</h2></a>
+  <a href="{% autoescape false %}{{home}}{% endautoescape %}#top"style="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;{{hh}}" class="title" id="home_color"><h2 class="material-symbols-outlined" style="margin-top:.5vh">home</h2><h2 style="color:inherit;text-decoration:inherit;">Home</h2></a>
 </div>
 <div style="margin-top:12vh">
 </div>
@@ -298,6 +298,8 @@ color: white;
 
 <script>
 
+var x = window.location.hash;
+
 function dropdown() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
@@ -315,21 +317,69 @@ window.onclick = function(event) {
   }
 }
 
+document.getElementById("home_color").addEventListener("mouseover", home, false);
+document.getElementById("about_color").addEventListener("mouseover", about, false);
+document.getElementById("learn_color").addEventListener("mouseover", learn, false);
+document.getElementById("disc_color").addEventListener("mouseover", disc, false);
+
+document.getElementById("home_color").addEventListener("mouseout", defualt, false);
+document.getElementById("about_color").addEventListener("mouseout", defualt, false);
+document.getElementById("learn_color").addEventListener("mouseout", defualt, false);
+document.getElementById("disc_color").addEventListener("mouseout", defualt, false);
+
+
+
 function about(){
-  document.getElementById("about_color").style.background="#0091ff";
-  document.getElementById("home_color").style.background="#333";
+  document.getElementById("about_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#0091ff";
+  document.getElementById("home_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("learn_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("disc_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
 }
 
 function home(){
-  document.getElementById("home_color").style.background="#0091ff";
-  document.getElementById("about_color").style.background="#333";
+  document.getElementById("home_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#0091ff";
+  document.getElementById("about_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("learn_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("disc_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
 }
 
-var x = window.location.hash;
-if (x == "#about"){
-  about()
+function learn(){
+  document.getElementById("learn_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#0091ff";
+  document.getElementById("about_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("home_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("disc_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
 }
-if (x == "#top"){
-  home()
+
+function disc(){
+  document.getElementById("disc_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#0091ff";
+  document.getElementById("about_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("learn_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("home_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
 }
+
+
+
+function defualt(){
+  var x = window.location.hash;
+  if (x == "#about"){
+    about()
+}
+  if (x == "#top"){
+    home()
+}
+  if (window.location.href.includes("learn")) {
+   learn()
+}
+  if (window.location.href.includes("discussion")){
+    disc()
+  }
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  defualt();
+});
+
+
+
 </script>
