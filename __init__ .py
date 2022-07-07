@@ -110,7 +110,7 @@ def index():
 		sorll = "/sign_in"
 		highlight = "background-color:#0091ff;"
 		becomemember = '<div style="top:32.5vh;position:absolute;text-align:center;width:100%"><h2 style="background: rgba(51, 51, 51, 0.75); border-radius: 10px; padding: 5px">Become a member today</h2></div>'
-		return flask.render_template("home.html", sip=sip, signed_out=signed_out, home=home, hh=highlight, sorl=sorl, sorll=sorll, becomemember=becomemember)
+		return flask.render_template("home.html", sip=sip, signed_out=signed_out, home=home, sorl=sorl, sorll=sorll, becomemember=becomemember)
 	else:
 		return redirect(f"/member/{session['google_id']}")
 
@@ -139,7 +139,7 @@ def disc():
 		sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 		home= "/"
 		highlight = "background-color:#0091ff;"
-		return flask.render_template("disc.html", signed_out=signed_out, sip=sip, home=home, hd=highlight)
+		return flask.render_template("disc.html", signed_out=signed_out, sip=sip, home=home, )
 
 @app.route("/discussion/member/<user_id>")
 def disc_member(user_id):
@@ -152,7 +152,7 @@ def disc_member(user_id):
 		home = f"http://127.0.0.1:5000/member/{user_id}"
 		highlight = "background-color:#0091ff;"
 		hp = "width:6vh"
-		return flask.render_template("disc.html", sip=sip, user_id=user_id, home=home, hd=highlight, hp=hp)
+		return flask.render_template("disc.html", sip=sip, user_id=user_id, home=home, hp=hp)
 
 @app.route("/res", methods=['POST'])
 def res():
@@ -221,7 +221,7 @@ def sign_in():
 	home = "/"
 	highlight = "background-color:#0091ff;"
 	sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
-	return flask.render_template("sign_in.html", signed_out=signed_out, home=home, sip=sip, hp=highlight)
+	return flask.render_template("sign_in.html", signed_out=signed_out, home=home, sip=sip, )
 
 @app.route("/new_account/<user_id>")
 def new_account(user_id):
@@ -270,7 +270,7 @@ def learn():
 		sip = f'<a href="/sign_in" style="margin-top:4vh;border-radius:5px;padding:0;height:6vh;margin-top:4vh;height:4vh;"><h2 class="material-symbols-outlined" style="margin-top:.5vh">login</h2><h2>Sign in</h2></a>'
 		home = "/"
 		highlight = "background-color:#0091ff;"
-		return flask.render_template("learn.html", sip=sip, signed_out=signed_out, home=home, hl=highlight)
+		return flask.render_template("learn.html", sip=sip, signed_out=signed_out, home=home, )
 
 @app.route("/learn/member/<user_id>")
 def learn_member(user_id):
@@ -283,7 +283,7 @@ def learn_member(user_id):
 		highlight = "background-color:#0091ff;"
 		hp = "width:6vh"
 		home = f"http://127.0.0.1:5000/member/{user_id}"
-		return flask.render_template("learn.html", sip=sip, user_id=user_id, hl=highlight, hp=hp, home=home)
+		return flask.render_template("learn.html", sip=sip, user_id=user_id, hp=hp, home=home)
 
 
 
@@ -317,7 +317,7 @@ def profile_member(user_id):
 		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
-		highlight = "width:6vh;border-radius:5px"
+		
 		usernames = dics_from_file("data/usernames.txt")
 		username = usernames[user_id]
 		f = open(f"data/{user_id}/bio.html", "r+")
@@ -325,7 +325,7 @@ def profile_member(user_id):
 		f.close()
 		if bio == "":
 			bio = "No bio"
-		return flask.render_template("profile.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, bio=bio, hp=highlight)
+		return flask.render_template("profile.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, bio=bio, )
 
 @app.route(f"/profile/edit/member/<user_id>")
 def bio(user_id):
@@ -336,24 +336,29 @@ def bio(user_id):
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		pfp = f'<img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;">'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
-		highlight = "width:6vh;border-radius:5px"
+		
 		usernames = dics_from_file("data/usernames.txt")
 		username = usernames[user_id]
 		f = open(f"data/{user_id}/bio.html", "r+")
 		bio = f.read()
 		f.close()
-		return flask.render_template("bio.html", sip=sip, user_id=user_id, home=home, username=username, bio=bio, hp=highlight)
+		return flask.render_template("bio.html", sip=sip, user_id=user_id, home=home, username=username, bio=bio, )
 
 @app.route("/edit_bio/<user_id>", methods=['POST'])
 def edit_bio(user_id):
 	if "google_id" not in session:
 		return redirect("/sign_in")
 	else:
+		usernames = dics_from_file("data/usernames.txt")
 		projectpath = request.form['projectFilepath']
-		f = open(f"data/{user_id}/bio.html", "w")
-		f.write(projectpath)
-		f.flush()
-		f.close()
+		new_username = request.form["username"]
+		with open(f"data/{user_id}/bio.html", "w") as f:
+			f.write(projectpath)
+			f.flush()
+		usernames[user_id] = new_username
+		with open("data/usernames.txt", "w") as f:
+			f.write(str(usernames).replace("'", '"'))
+			f.flush()
 		return redirect(f"/profile/member/{user_id}", code=302)
 
 @app.route("/data")
@@ -366,7 +371,6 @@ def data_member(user_id):
 		pfp = get_pfp(user_id)
 		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
 		home = f"http://127.0.0.1:5000/member/{user_id}"
-		highlight = "width:6vh;border-radius:5px"
 		usernames = dics_from_file("data/usernames.txt")
 		username = usernames[user_id]
 		if os.path.isdir(f"/server/flask/data/data_page/{user_id}") is False:
@@ -394,7 +398,7 @@ def data_member(user_id):
     </h2>
 	<h2 onclick="goals_settings" class="material-symbols-outlined" style="display: inline-block; float: right; margin: 2vh 2vw 2vh 0;">menu</h2>
     <canvas id="Chart" style="max-height: 20vh; max-width: 55vw; display: block; margin-left: auto; margin-right: auto;"></canvas>'''
-		return flask.render_template("data.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, hp=highlight, goals=goals, time_data=time_data, unit_data=unit_data, units=units, time_units=time_units, goal_or_add=goal_or_add)
+		return flask.render_template("data.html", sip=sip, user_id=user_id, pfp=pfp, home=home, username=username, goals=goals, time_data=time_data, unit_data=unit_data, units=units, time_units=time_units, goal_or_add=goal_or_add)
 	else:
 		redirect("/")
 
