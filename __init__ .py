@@ -379,20 +379,27 @@ def data_member(user_id):
 			os.system(f"touch /server/flask/data/data_page/{user_id}/goals.txt")
 			with open(f"/server/flask/data/data_page/{user_id}/goals.txt", "w+") as f:
 				f.write('''{
-    "goals": "",
-    "time_data": "",
-    "unit_data":  "",
-    "units": "",
-    "time_units": ""
+	"goals": "",
+	"units": "",
+	"time_units": ""
+}''')
+
+		if os.path.exists(f"/server/flask/data/data_page/{user_id}/data.txt") is False:
+			os.system(f"touch /server/flask/data/data_page/{user_id}/data.txt")
+			with open(f"/server/flask/data/data_page/{user_id}/data.txt", "w+") as f:
+				f.write('''{
+	"time_data": "",
+	"unit_data": ""
 }''')
 		goals_data = dics_from_file(f"/server/flask/data/data_page/{user_id}/goals.txt")
+		data = dics_from_file(f"/server/flask/data/data_page/{user_id}/data.txt")
 		goals = goals_data["goals"]#title
-		time_data = goals_data["time_data"]#x axis
-		unit_data = goals_data["unit_data"]#y axis
+		time_data = data["time_data"]#x axis
+		unit_data = data["unit_data"]#y axis
 		units = goals_data["units"]#pounds, kgs, minutes
 		time_units = goals_data["time_units"]#ex. days, months, years
 		if goals == "":
-			goal_or_add = '<a href="a" style="display: block; margin: 12.5vh auto 12.5vh auto; height:5vh; width: 10vw; border-radius: 3vh; border: solid #000000 2px; text-align: center; vertical-align: middle; font-size: 2vh">add goals</a>'
+			goal_or_add = f'<a href="/add_goals/{user_id}" style="display: block; margin: 12.5vh auto 12.5vh auto; height:5vh; width: 10vw; border-radius: 3vh; border: solid #000000 2px; text-align: center; vertical-align: middle; font-size: 2vh">add goals</a>'
 		else:
 			goal_or_add = f'''<h2 style="height: 5vh; color: #000000; margin: 2vh 0 2vh 2vw; display: inline-block;">
         Goals: {goals}
@@ -420,6 +427,28 @@ def edit_goals(user_id):
 				os.system(f"rm /server/flask/data/data_page/{user_id}/goals.txt")
 				return redirect("/sign_in")
 	return 300
+
+@app.route("/add_goals/<user_id>")
+def add_goals_page(user_id):
+	if logged_in() is True:
+		pfp = get_pfp(user_id)
+		sip = f'<button onclick="dropdown()" class="dropbtn" style="float: right;background-color: transparent;border: transparent;"><a style="margin-top:3vh;border-radius:5px;padding:0;height:6vh;"><img src="{pfp}" alt="pfp" style="border-radius:50%;width:5vh;height:5vh;padding:0;margin:calc(.5vh - 3px);border: solid #0091ff;" class="dropbtn"></a></button>'
+		home = f"http://127.0.0.1:5000/member/{user_id}"
+		usernames = dics_from_file("data/usernames.txt")
+		username = usernames[user_id]
+		return flask.render_template("add_goals.html", pfp=pfp, sip=sip, home=home, user_id=user_id)
+
+@app.route('/add_goals_data/<user_id>', methods=["POST"])
+def add_goals_data(user_id):
+	if logged_in() is True:
+		goal = request.form["goal"]
+		goal_units = request.form["goal_units"]
+		goals = dics_from_file(f"/server/flask/data/data_page/{user_id}/goals.txt")
+		goals["goals"] = goal
+		goals["units"] = goal_units
+		with open(f"/server/flask/data/data_page/{user_id}/goals.txt", "w+") as f:
+			f.write(str(goals).replace("'", '"'))
+		return redirect(f"/data/member/{user_id}")
 
 @app.route("/uploader", methods=["POST"])
 def upload_file():
