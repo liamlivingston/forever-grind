@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/add_goals_data/{{user_id}}" method="post">
+    <p style="margin:0px;color:#000000">Goal:</p>
+    <input id="goal" type="text" name="goal"/>
+    <p style="margin:0px;color:#000000">Goal units:</p>
+    <input id="goal_units" type="text" name="goal_units"/>
+    <br>
+    <input type="submit">
+</form>
+{% endblock %}
