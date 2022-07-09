@@ -357,7 +357,12 @@ function disc(){
   document.getElementById("home_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
 }
 
-
+function clear(){
+  document.getElementById("about_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("home_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("learn_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+  document.getElementById("disc_color").style.cssText="margin-top:4vh;margin-bottom:4vh;height:4vh;border-radius: 5px;text-decoration: underline;text-decoration-color:#333";
+}
 
 function defualt(){
   var x = window.location.hash;
@@ -372,6 +377,9 @@ function defualt(){
 }
   if (window.location.href.includes("discussion")){
     disc()
+  }
+  else {
+    clear()
   }
 
 }
