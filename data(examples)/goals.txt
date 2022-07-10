@@ -1,7 +1,5 @@
 {
     "goals": "gain 10 lbs",
-    "time_data": "1,2,3,4,5,6,7",
-    "unit_data":  "100,101,100,101,102,101,102",
     "units": "Pounds",
     "time_units": "days"
 }
