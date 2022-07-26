@@ -28,10 +28,25 @@
     {{goal_or_add}}
     {% endautoescape %}
 </div>
+<div id="edit_menu" style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto;border: solid black 2px;height:20vh;width: 50vh;background-color: #ffffff; 
+box-shadow: 0 0 0 100vmax rgb(0 0 0 / 60%);display: none;">
+    <a class="material-symbols-outlined" href="javascript:;" style="position: absolute; right: 0; top: 0; color: #000000;height:24px;">close</a>
+    <h2>edit</h2>
+</div>
+
+
+<div id="add_menu" style="position: absolute;left: 0;right: 0;top: 0;bottom: 0;margin: auto;border: solid black 2px;height:20vh;width: 50vh;background-color: #ffffff; 
+box-shadow: 0 0 0 100vmax rgb(0 0 0 / 60%);display: none;">
+    <a class="material-symbols-outlined" href="javascript:;" style="position: absolute; right: 0; top: 0; color: #000000;height:24px;">close</a>
+    <h2>add</h2>
+</div>
+
 <div style="height: 100vh;"></div>
 <script>
 var xValues = [{{time_data}}];
 var yValues = [{{unit_data}}];
+let add_status = "closed";
+let edit_status = "closed";
 
 new Chart("Chart", {
   type: "line",
@@ -81,20 +96,20 @@ document.addEventListener("click", function(event){
 });
 
 document.addEventListener("click", function(event){
-    if (event.target.id != "add"){
+    if (event.target.parentElement.parentElement.id != "dropdown-goals" && event.target.id != "add_menu" && event.target.id != "edit_menu" && event.target.id != "remove"){
         add_close();
     }
-    else{
-        add();
+    if (event.target.id == "add"){
+        add()
     }
 });
 
 document.addEventListener("click", function(event){
-    if (event.target.id != "edit"){
+    if (event.target.parentElement.parentElement.id != "dropdown-goals" && event.target.id != "edit_menu" && event.target.id != "add_menu" && event.target.id != "remove"){
         edit_close();
     }
-    else{
-        edit();
+    if (event.target.id == "edit"){
+        edit()
     }
 });
 
@@ -104,16 +119,27 @@ function goals_settings_close(){
 }
 
 function add(){
+    add_status = "open";
     document.getElementById("add_menu").style.display="block";
 }
 function edit(){
+    edit_status = "open";
     document.getElementById("edit_menu").style.display="block";
+    document.body.style.overflow = "hidden";
 }
 function add_close(){
     document.getElementById("add_menu").style.display="none";
+    if (add_status == "open"){
+        document.body.style.overflow = "auto";
+    }
+    add_status = "closed"
 }
 function edit_close(){
     document.getElementById("edit_menu").style.display="none";
+    if (edit_status == "open"){
+        document.body.style.overflow = "auto";
+    }
+    edit_status = "closed"
 }
 
 function remove(){
@@ -126,8 +152,8 @@ function remove(){
     }
     xhr.send("remove=True");
     window.location.reload();
-
 }
+
 
 </script>
 
